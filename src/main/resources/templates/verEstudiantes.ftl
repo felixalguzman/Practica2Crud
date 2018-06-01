@@ -79,6 +79,7 @@
                             <th>Telefono</th>
                             <th>Eliminar</th>
                             <th>Modificar</th>
+                            <th>Ver</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,8 +92,10 @@
                                 <td>${estudiante.apellido}</td>
                                 <td>${estudiante.telefono}</td>
 
-                                <td><a href="/eliminar/${estudiante.matricula}/${estudiante.nombre}/${estudiante.apellido}/${estudiante.telefono}"   class="btn"><i class="far fa-trash-alt"></i></a></td>
-                                <td><a href="/editar/${estudiante.matricula}/${estudiante.nombre}/${estudiante.apellido}/${estudiante.telefono}" class="btn"><i class="fas fa-pencil-alt"></i></a></td>
+
+                                <td><a href="/eliminar/${x}"   class="btn"><i class="far fa-trash-alt"></i></a></td>
+                                <td><a href="/editar/${x}" class="btn"><i class="fas fa-pencil-alt"></i></a></td>
+                                <td><a href="ver/${x}" class="btn"><i class="fas fa-eye"></i></a></td>
 
                             </tr>
                         <#assign x++>

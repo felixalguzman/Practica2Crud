@@ -64,7 +64,8 @@
 
             <form method="POST" action="/agregar">
                 <div class="form-group">
-                   <br> <label style="float: left" for="matricula"><br>Matricula</label>
+                    </br></br>
+                    <label style="float: left" for="matricula"><br>Matricula</label>
                     <input type="number" class="form-control" placeholder="Introduce la matricula" min="0"  name="matricula" required>
                 </div>
                 <div class="form-group">

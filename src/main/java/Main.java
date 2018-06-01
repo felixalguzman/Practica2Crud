@@ -53,7 +53,8 @@ public class Main {
                 String nombre = request.queryParams("nombre");
                 String apellido = request.queryParams("apellido");
                 String telefono = request.queryParams("telefono");
-                estudiantes.add(new Estudiante(Integer.parseInt(matricula), nombre, apellido, telefono));
+                String matriculaParseada = matricula.replace(",", "");
+                estudiantes.add(new Estudiante(Integer.parseInt(matriculaParseada), nombre, apellido, telefono));
                 response.redirect("/");
             }catch (Exception error){
                 System.out.println("Hubo un error agregando un estudiante " + error.toString());
@@ -72,50 +73,40 @@ public class Main {
 
         get("/generar", (request, response) -> {
 
-            estudiantes.add(new Estudiante(12, "feli", "guzman", "654"));
-            estudiantes.add(new Estudiante(13, "ali", "rodriguez", "321"));
-            estudiantes.add(new Estudiante(14, "jose", "pere", "65461"));
-            estudiantes.add(new Estudiante(15, "lui", "martinez", "65465"));
+            estudiantes.add(new Estudiante(20141234, "feli", "guzman", "654987654"));
+            estudiantes.add(new Estudiante(20133122, "ali", "rodriguez", "32165444"));
+            estudiantes.add(new Estudiante(20149877, "jose", "pere", "65461654455"));
+            estudiantes.add(new Estudiante(20154545, "lui", "martinez", "6546554545"));
 
             response.redirect("/verEstudiantes");
             return "";
                 });
 
 
-        get("/eliminar/:matricula/:nombre/:apellido/:telefono",(request, response) -> {
+        get("/eliminar/:posicion",(request, response) -> {
 
-            String matricula = request.params("matricula");
-            String nombre = request.params("nombre");
-            String apellido= request.params("apellido");
-            String telefono= request.params("telefono");
-            Estudiante estudiante = buscarEstudiante(Integer.parseInt(matricula), nombre, apellido, telefono);
+            String posicion = request.params("posicion");
 
-            if (estudiante != null){
+            estudiantes.remove(Integer.parseInt(posicion));
 
-                estudiantes.remove(estudiante);
-            }
 
             response.redirect("/");
             return "";
         });
 
-        get("/editar/:matricula/:nombre/:apellido/:telefono", (request, response) -> {
+        get("/editar/:posicion", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
-            String matricula = request.params("matricula");
-            String matriculaParseada = matricula.replace(",", "");
-            String nombre = request.params("nombre");
-            String apellido= request.params("apellido");
-            String telefono= request.params("telefono");
-            Estudiante estudiante = buscarEstudiante(Integer.parseInt(matriculaParseada), nombre, apellido, telefono);
+            String posicion = request.params("posicion");
+            Estudiante estudiante = estudiantes.get(Integer.parseInt(posicion));
+
             estudianteEditar = estudiante;
             attributes.put("titulo", "Editar estudiante");
             attributes.put("estudiante", estudiante);
 
-
-            return new ModelAndView(attributes, "formularioEditar.ftl");
+            return new ModelAndView(attributes, "editar.ftl");
         }, freeMarkerEngine);
 
-        post("/editar",(request, response) -> {
+        post("/editarP",(request, response) -> {
             StringWriter escritor = new StringWriter();
             try {
                 String matricula = request.queryParams("matricula");
@@ -143,20 +134,20 @@ public class Main {
             return escritor;
         });
 
+        get("/ver/:posicion", (request, response) -> {
+
+            String posicion = request.params("posicion");
+            Estudiante estudiante = estudiantes.get(Integer.parseInt(posicion));
+
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("estudiante", estudiante);
+
+            return new ModelAndView(attributes, "ver.ftl");
+        }, freeMarkerEngine);
+
 
     }
 
-    private static Estudiante buscarEstudiante(int matricula, String nombre, String apellido, String telefono){
-
-        for (Estudiante estudiante:estudiantes) {
-
-            if (estudiante.getMatricula() == matricula && estudiante.getNombre().equalsIgnoreCase(nombre) && estudiante.getApellido().equalsIgnoreCase(apellido) && estudiante.getTelefono().equalsIgnoreCase(telefono)){
-
-                return estudiante;
-            }
-        }
-        return null;
-    }
 
     private static int posicionEstudiante(Estudiante estudiante){
 
