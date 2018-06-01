@@ -15,6 +15,7 @@ import static spark.Spark.staticFiles;
 
 public class Main {
 
+    static ArrayList<Estudiante> estudiantes = new ArrayList<>();
     public static void main(String[] args) {
 
 
@@ -28,7 +29,7 @@ public class Main {
 
         FreeMarkerEngine freeMarkerEngine = new FreeMarkerEngine(configuration);
 
-        ArrayList<Estudiante> estudiantes = new ArrayList<>();
+
 
         get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
@@ -58,6 +59,42 @@ public class Main {
             return escritor;
         });
 
+        get("/eliminar/:matricula/:nombre/:apellido/:telefono",(request, response) -> {
 
+            String matricula = request.params("matricula");
+            String nombre = request.params("nombre");
+            String apellido= request.params("apellido");
+            String telefono= request.params("telefono");
+            Estudiante estudiante = buscarEstudiante(Integer.parseInt(matricula), nombre, apellido, telefono);
+
+            if (estudiante != null){
+
+                estudiantes.remove(estudiante);
+            }
+
+            response.redirect("/");
+            return "";
+        });
+
+        get("/editar", (request, response) -> {
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("titulo", "Inicio");
+
+            return new ModelAndView(attributes, "formularioAgregar.ftl");
+        }, freeMarkerEngine);
+
+
+    }
+
+    private static Estudiante buscarEstudiante(int matricula, String nombre, String apellido, String telefono){
+
+        for (Estudiante estudiante:estudiantes) {
+
+            if (estudiante.getMatricula() == matricula && estudiante.getNombre().equalsIgnoreCase(nombre) && estudiante.getApellido().equalsIgnoreCase(apellido) && estudiante.getTelefono().equalsIgnoreCase(telefono)){
+
+                return estudiante;
+            }
+        }
+        return null;
     }
 }
