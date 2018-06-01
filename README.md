@@ -30,3 +30,4 @@ explican lo realizado.
 
 * Listado de estudiantes
 * Visualizar estudiante
+* Borrado es seleccionar el estudiante y borrado.
