@@ -59,6 +59,7 @@
 
                         <h3 id="titulo">Cantidad de estudiantes registrados ${cantEstudiantes}</h3>
 
+                        <a href="/generar" class="btn btn">Generar</a>
 
                     </div>
 

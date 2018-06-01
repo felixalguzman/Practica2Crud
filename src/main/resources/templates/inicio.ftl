@@ -97,6 +97,13 @@
                     </tbody>
                 </table>
 
+                <#if (x >= 5) >
+                      <form method="get" action="/verEstudiantes">
+                          <button style="float: right" type="submit" class="btn btn">Ver mas</button>
+                      </form>
+
+                </#if>
+
             </div>
         </div>
         <!-- /#page-content-wrapper -->

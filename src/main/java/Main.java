@@ -35,7 +35,10 @@ public class Main {
         get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("titulo", "Inicio");
-            attributes.put("estudiantes",estudiantes.subList(0,5));
+            if (estudiantes.size() > 5)
+                attributes.put("estudiantes",estudiantes.subList(0,5));
+            else
+                attributes.put("estudiantes",estudiantes);
             return new ModelAndView(attributes, "inicio.ftl");
         }, freeMarkerEngine);
 
@@ -66,6 +69,17 @@ public class Main {
             attributes.put("estudiantes",estudiantes);
             return new ModelAndView(attributes, "verEstudiantes.ftl");
         }, freeMarkerEngine);
+
+        get("/generar", (request, response) -> {
+
+            estudiantes.add(new Estudiante(12, "feli", "guzman", "654"));
+            estudiantes.add(new Estudiante(13, "ali", "rodriguez", "321"));
+            estudiantes.add(new Estudiante(14, "jose", "pere", "65461"));
+            estudiantes.add(new Estudiante(15, "lui", "martinez", "65465"));
+
+            response.redirect("/verEstudiantes");
+            return "";
+                });
 
 
         get("/eliminar/:matricula/:nombre/:apellido/:telefono",(request, response) -> {
