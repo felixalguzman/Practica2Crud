@@ -1,5 +1,7 @@
+package main;
+
+import encapsulacion.Estudiante;
 import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.Version;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;

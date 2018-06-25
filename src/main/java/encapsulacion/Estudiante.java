@@ -1,3 +1,5 @@
+package encapsulacion;
+
 public class Estudiante {
 
     private int matricula;
