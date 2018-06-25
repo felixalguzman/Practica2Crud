@@ -113,6 +113,7 @@ public class Main {
                 String nombre = request.queryParams("nombre");
                 String apellido = request.queryParams("apellido");
                 String telefono = request.queryParams("telefono");
+
                int pos = posicionEstudiante(estudianteEditar);
 
                estudianteEditar.setMatricula(Integer.parseInt(matricula));

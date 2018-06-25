@@ -1,0 +1,24 @@
+.fa-bars{
+    color: black;
+    vertical-align: text-top;
+}
+
+.fa-trash-alt{
+    color:red;
+}
+.fa-pencil-alt{
+    color:black;
+}
+
+.fa-eye{
+    color:black;
+}
+
+#menu-toggle{
+    display:inline-block;margin-right:10px;
+
+}
+#titulo{
+
+    display:inline-block;
+}
